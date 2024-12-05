@@ -4,16 +4,3 @@
     padding: 20px;
     max-width: 700px;
 }
-
-.listaTransacciones{
-    border: solid 2px red;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 700px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}

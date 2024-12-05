@@ -8,41 +8,69 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
-
-    <main>     
-        <h1 class="text-center">Mi presupuesto Personal</h1>   
-        <div class="container">  
-           
-            <div class="nuevaTransaccion">
-                <h2>Nueva Transaccion</h2>
-                <form id="presupuestoForm">
-                    <div class="mb-3">
-                      <label for="inputMonto" class="form-label">Monto($):</label>                  
-                      <input type="text" class="form-control" id="inputMonto">
+    <main>
+        <div class="container">
+            <h1 class="text-center mb-4">Mi presupuesto Personal</h1>    
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 mb-5">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h2 class="h5">Nueva Transaccion</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="presupuestoForm">
+                                <div class="mb-3">
+                                  <label for="inputMonto" class="form-label">Monto($):</label>                  
+                                  <input type="text" step="0.01" class="form-control" id="inputMonto" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="inputTipoTransaccion" class="form-label">Tipo:</label>
+                                  <select id="inputTipoTransaccion" class="form-select" required>
+                                    <option value="1">INGRESO</option>
+                                    <option value="2">GASTO</option>
+                                  </select>
+                                </div>                                
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">AGREGAR TRANSACCION</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="inputTipoTransaccion" class="form-label">Tipo:</label>
-                      <select id="inputTipoTransaccion" class="form-select">
-                        <option value="1">INGRESO</option>
-                        <option value="2">GASTO</option>
-                      </select>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">AGREGAR TRANSACCION</button>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h2 class="h5">Listado de Transacciones</h2>
+                        </div> 
+                        <div class="card-body">
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">ORDENAR POR MONTO</button>
+                            </div>
+                            <div id="contenedorTransacciones">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Tipo Operacion</th>
+                                        <th scope="col">Monto</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                      
+                                    </tbody>
+                                  </table>
+                            </div>   
+                            
+                        </div>                       
                     </div>
                     
-                </form>
-            </div> 
-            <div class="listaTransacciones"> 
-                <div id="contenedorTransacciones">
-                    
-                </div>   
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">ORDENAR POR MONTO</button>    
-                </div> 
-            </div>          
-        </div>
-        
+                </div>
+            </div>      
+            
+                     
+        </div>        
     </main>
     
     <script src="./app.js"></script>

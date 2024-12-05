@@ -1,5 +1,7 @@
 // Seleccionamos el formulario por su ID
 const form = document.getElementById('presupuestoForm');
+const bodyTable = document.getElementById('tableBody');
+
 const listaTransacciones = [];
 
 form.addEventListener('submit', function(event) {
@@ -19,19 +21,37 @@ form.addEventListener('submit', function(event) {
     default:
         break;
  }
- console.log('Transaccion', {listaTransacciones});
+ bodyTable.innerHTML = '';
+ mostrarListarTransacciones(listaTransacciones);
 
 });
 
 function mostrarListarTransacciones(listaTransacciones) {
-    const contenedor = document.getElementById("contenedor");
+
+    let index = 1;    
     
     for (const transaccion of listaTransacciones) {
 
-        const spanFecha = document.createElement("span");
-        spanFecha.textContent = transaccion.monto;
+        const nuevaFila = document.createElement("tr");
+        let colorFila = transaccion.tipoTransaccion === '1'? 'class="table-success"': 'class="table-danger"';
+        let tipo = transaccion.tipoTransaccion === '1'? 'INGRESO':'GASTO';
 
-        const span = document.createElement("span");
-        span.textContent = transaccion.monto;
+        nuevaFila.innerHTML = `
+        <th ${colorFila} scope="row">${index}</th>
+        <td ${colorFila}>${formatoFecha(transaccion.fecha)}</td>
+        <td ${colorFila}>${tipo}</td>
+        <td ${colorFila}>${transaccion.monto}</td>
+        `;
+        bodyTable.appendChild(nuevaFila);
+        index++;
       }
+}
+
+function formatoFecha(fecha) {
+    const dia = String(fecha.getDate()).padStart(2, '0'); // Aseguramos que el día tenga 2 dígitos
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11, así que sumamos 1
+    const año = fecha.getFullYear(); // Obtener el año completo
+
+    // Formato de fecha: día/mes/año
+    return `${dia}/${mes}/${año}`;
 }
