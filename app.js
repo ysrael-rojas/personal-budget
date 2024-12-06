@@ -55,3 +55,10 @@ function formatoFecha(fecha) {
     // Formato de fecha: día/mes/año
     return `${dia}/${mes}/${año}`;
 }
+
+function ordenarTransacciones() {
+
+    listaTransacciones.sort((a,b) => a.monto - b.monto);
+    bodyTable.innerHTML = '';
+    mostrarListarTransacciones(listaTransacciones);
+}
