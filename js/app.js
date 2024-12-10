@@ -3,6 +3,7 @@ const form = document.getElementById('presupuestoForm');
 const bodyTable = document.getElementById('tableBody');
 
 const listaTransacciones = [];
+let balanceTotal = 0;
 
 form.addEventListener('submit', function(event) {
   
@@ -37,10 +38,10 @@ function mostrarListarTransacciones(listaTransacciones) {
         let tipo = transaccion.tipoTransaccion === '1'? 'INGRESO':'GASTO';
 
         nuevaFila.innerHTML = `
-        <th ${colorFila} scope="row">${index}</th>
+        <th ${colorFila}>${index}</th>
         <td ${colorFila}>${formatoFecha(transaccion.fecha)}</td>
         <td ${colorFila}>${tipo}</td>
-        <td ${colorFila}>${transaccion.monto}</td>
+        <td class="col-monto" ${colorFila}>${transaccion.monto}</td>
         `;
         bodyTable.appendChild(nuevaFila);
         index++;

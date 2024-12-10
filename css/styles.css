@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: rgb(0, 0, 0) 8px 8px 0 0;
+    border: 2px solid rgb(0, 0, 0);
+    max-width: 600px;
+    width: 100%;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+.title-card {
+    padding: 10px 0; 
+    border-bottom: 1px solid #eee;
+}
+
+.title-card h5 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.body-card {
+    margin-top: 15px;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-control label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-control input,
+.form-control select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-control input:focus,
+.form-control select:focus {
+    border-color: #007bff;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Estilos para la tabla */
+.table {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Combina los bordes para un diseño limpio */
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center; /* Alinea el texto a la izquierda */
+}
+
+.table th, .table td {
+    padding: 10px; /* Espaciado interno */
+}
+
+.col-monto {
+    text-align: right;
+}
+
+.table th {
+    background-color: #f4f4f4; /* Fondo gris claro para los encabezados */
+    color: #333; /* Texto oscuro */
+    font-weight: bold;
+    text-transform: uppercase; /* Texto en mayúsculas para los encabezados */
+    text-align: center;
+}
