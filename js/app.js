@@ -13,6 +13,13 @@ form.addEventListener('submit', function(event) {
   const monto = Number(document.getElementById('inputMonto').value);
   const tipoTransaccion = document.getElementById('inputTipoTransaccion').value;
 
+  const estado = validarMonto(monto);
+  if (estado == false) {
+    alert('el monto no cumple con lo establecido');
+    return;
+  }
+  
+
  switch (tipoTransaccion) {
     case '1':
         listaTransacciones.push({fecha:new Date(),tipoTransaccion: tipoTransaccion, monto: monto});
@@ -52,14 +59,13 @@ function mostrarListarTransacciones(listaTransacciones) {
     for (const transaccion of listaTransacciones) {
 
         const nuevaFila = document.createElement("tr");
-        let colorFila = transaccion.tipoTransaccion === '1'? 'class="table-success"': 'class="table-danger"';
         let tipo = transaccion.tipoTransaccion === '1'? 'INGRESO':'GASTO';
 
         nuevaFila.innerHTML = `
-        <th ${colorFila}>${index}</th>
-        <td ${colorFila}>${formatearFecha(transaccion.fecha)}</td>
-        <td ${colorFila}>${tipo}</td>
-        <td class="col-monto" ${colorFila}>${formatearMonto (transaccion.monto)}</td>
+        <th>${index}</th>
+        <td>${formatearFecha(transaccion.fecha)}</td>
+        <td>${tipo}</td>
+        <td>${formatearMonto (transaccion.monto)}</td>
         `;
         bodyTable.appendChild(nuevaFila);
         index++;
