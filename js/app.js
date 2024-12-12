@@ -1,8 +1,10 @@
 // Seleccionamos el formulario por su ID
 const form = document.getElementById('presupuestoForm');
 const bodyTable = document.getElementById('tableBody');
+const areaBalance = document.getElementById('presupuestoBalance');
 
 const listaTransacciones = [];
+let balanceTotal = 0;
 
 form.addEventListener('submit', function(event) {
   
@@ -10,6 +12,13 @@ form.addEventListener('submit', function(event) {
 
   const monto = Number(document.getElementById('inputMonto').value);
   const tipoTransaccion = document.getElementById('inputTipoTransaccion').value;
+
+  const estado = validarMonto(monto);
+  if (estado == false) {
+    alert('el monto no cumple con lo establecido');
+    return;
+  }
+  
 
  switch (tipoTransaccion) {
     case '1':
@@ -23,8 +32,25 @@ form.addEventListener('submit', function(event) {
  }
  bodyTable.innerHTML = '';
  mostrarListarTransacciones(listaTransacciones);
+ actualizarBalance();
 
 });
+
+function actualizarBalance() {
+
+    areaBalance.innerHTML = '';
+
+    balanceTotal = calcularBalance(listaTransacciones); 
+
+    crearSpanBalance(balanceTotal);    
+}
+
+function crearSpanBalance(balance) {
+
+    const spanBalance = document.createElement("span");
+    spanBalance.textContent = formatearMonto(balance);
+    areaBalance.appendChild(spanBalance);
+}
 
 function mostrarListarTransacciones(listaTransacciones) {
 
@@ -33,27 +59,17 @@ function mostrarListarTransacciones(listaTransacciones) {
     for (const transaccion of listaTransacciones) {
 
         const nuevaFila = document.createElement("tr");
-        let colorFila = transaccion.tipoTransaccion === '1'? 'class="table-success"': 'class="table-danger"';
         let tipo = transaccion.tipoTransaccion === '1'? 'INGRESO':'GASTO';
 
         nuevaFila.innerHTML = `
-        <th ${colorFila} scope="row">${index}</th>
-        <td ${colorFila}>${formatoFecha(transaccion.fecha)}</td>
-        <td ${colorFila}>${tipo}</td>
-        <td ${colorFila}>${transaccion.monto}</td>
+        <th>${index}</th>
+        <td>${formatearFecha(transaccion.fecha)}</td>
+        <td>${tipo}</td>
+        <td>${formatearMonto (transaccion.monto)}</td>
         `;
         bodyTable.appendChild(nuevaFila);
         index++;
       }
-}
-
-function formatoFecha(fecha) {
-    const dia = String(fecha.getDate()).padStart(2, '0'); // Aseguramos que el día tenga 2 dígitos
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11, así que sumamos 1
-    const año = fecha.getFullYear(); // Obtener el año completo
-
-    // Formato de fecha: día/mes/año
-    return `${dia}/${mes}/${año}`;
 }
 
 function ordenarTransacciones() {
@@ -62,3 +78,8 @@ function ordenarTransacciones() {
     bodyTable.innerHTML = '';
     mostrarListarTransacciones(listaTransacciones);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    crearSpanBalance(balanceTotal); 
+});
