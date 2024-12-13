@@ -1,12 +1,4 @@
-function calcularBalance(transacciones) {
 
-    return transacciones.reduce((total,{tipoTransaccion, monto}) => {
-
-        return total + monto;
-
-    }, 0);
-
-}
 
 function formatearMonto(monto, moneda = 'USD') {
         
