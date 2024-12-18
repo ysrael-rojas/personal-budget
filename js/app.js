@@ -3,7 +3,7 @@ const form = document.getElementById('presupuestoForm');
 const bodyTable = document.getElementById('tableBody');
 const areaBalance = document.getElementById('presupuestoBalance');
 
-const listaTransacciones = [];
+const listaTransacciones = new Budget();
 let balanceTotal = 0;
 
 form.addEventListener('submit', function(event) {
@@ -13,23 +13,12 @@ form.addEventListener('submit', function(event) {
   const monto = Number(document.getElementById('inputMonto').value);
   const tipoTransaccion = document.getElementById('inputTipoTransaccion').value;
 
-  const estado = validarMonto(monto);
-  if (estado == false) {
-    alert('el monto no cumple con lo establecido');
-    return;
-  }
-  
+  const transaction = new Transaction(tipoTransaccion,monto);
 
- switch (tipoTransaccion) {
-    case '1':
-        listaTransacciones.push({fecha:new Date(),tipoTransaccion: tipoTransaccion, monto: monto});
-        break;
-    case '2':
-        listaTransacciones.push({fecha:new Date(),tipoTransaccion: tipoTransaccion, monto: monto*(-1)});
- 
-    default:
-        break;
- }
+  listaTransacciones.add(transaction);
+  
+  console.log(transaction.formatAmount());
+
  bodyTable.innerHTML = '';
  mostrarListarTransacciones(listaTransacciones);
  actualizarBalance();
@@ -54,22 +43,19 @@ function crearSpanBalance(balance) {
 
 function mostrarListarTransacciones(listaTransacciones) {
 
-    let index = 1;    
-    
-    for (const transaccion of listaTransacciones) {
+    let index = 1;  
 
+    listaTransacciones.transactions.forEach((transaction) => {
         const nuevaFila = document.createElement("tr");
-        let tipo = transaccion.tipoTransaccion === '1'? 'INGRESO':'GASTO';
-
         nuevaFila.innerHTML = `
         <th>${index}</th>
-        <td>${formatearFecha(transaccion.fecha)}</td>
-        <td>${tipo}</td>
-        <td>${formatearMonto (transaccion.monto)}</td>
+        <td>${transaction.getFormattedDate()}</td>
+        <td>${transaction.type === '1'? 'INGRESO':'GASTO'}</td>
+        <td>${transaction.getFormattedSignedAmount()}</td>
         `;
         bodyTable.appendChild(nuevaFila);
         index++;
-      }
+    });
 }
 
 function ordenarTransacciones() {
